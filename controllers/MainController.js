@@ -7,7 +7,7 @@ class MainController {
     index(req, res) {
         res.render("pages/main")
     }
-//! remove delete list button from today list or insert today list into list schema
+
     today(req, res) {
         const Item = req.models.Item
 
