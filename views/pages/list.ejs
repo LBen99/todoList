@@ -1,0 +1,92 @@
+<%- include("../partials/head"); %>
+
+<%- include("../partials/header"); %>
+
+
+  <main class="px-3">
+
+    <div class="box" id="heading">
+      <div class="">
+        <div class="previous-btn">
+          <form action="/todo/previous" method="post">
+            <button type="submit" name="previousList" value="<%= listTitle %>">
+              <
+            </button>
+          </form>
+        </div>
+
+        <div class="list-heading">
+          <form action="/my-lists" method="post">
+            <button class="list-heading-btn" type="submit" name="currentList" value="<%= listTitle %>" onclick="window.location.href='viewCollection.ejs'">
+              <h1><%= listTitle %></h1>
+            </button>
+          </form>
+        </div>
+
+        <div class="next-btn">
+          <form action="/todo/next" method="post">
+            <button type="submit" name="nextList" value="<%= listTitle %>">></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="list-options">
+        <form action="/todo/deleteList" method="post">
+          <div class="delete-btn">
+            <button type="submit" name="deleteButton" value="<%= id %>">delete list</button>
+          </div>
+          <input type="hidden" name="listName" value="<%= listTitle %>">
+        </form>
+        <button class="add-item-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          +
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+              <form action="/todo" method="post">
+                <div class="modal-body p-5">
+                  <h2 class="fw-bold mb-0">Add new task!</h2>
+                  <ul class="d-grid gap-4 my-5 list-unstyled">
+                    <li class="d-flex gap-4">
+                      <input class="form-control" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+                    </li>
+                    <li class="d-flex gap-4">
+                      <div class="dropdown-center">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <%= listTitle %>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Action two</a></li>
+                          <li><a class="dropdown-item" href="#">Action three</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                  <input type="hidden" name="listId" value="<%= id %>">
+                  <button id="submit-item-btn" type="submit" name="list" value="<%= listTitle %>" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
+                </div> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+
+        <% newListItems.forEach((item) => { %>
+          <form action="/todo/deleteItem" method="post">
+            <div class="item">
+              <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
+              <p><%= item.name %></p>
+            </div>
+            <input type="hidden" name="thisListId" value="<%= id %>">
+            <input type="hidden" name="thisList" value="<%= listTitle %>">
+          </form>
+          <% }) %>
+      </div>
+
+  </main>
+
+<%- include("../partials/footer"); %>

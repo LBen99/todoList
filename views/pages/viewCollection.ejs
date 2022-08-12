@@ -1,0 +1,31 @@
+<%- include("../partials/head"); %>
+
+<%- include("../partials/header"); %>
+
+
+<div class="box" id="heading">
+  <div class="list-heading">
+    <button type="button" name="homeButton" onclick="window.location.href='/todo'">home</button>
+    <h1>My Lists</h1>
+  </div>
+</div>
+
+<div class="box">
+  <form class="item" action="/my-lists/createList" method="post">
+    <input type="text" name="newListName" placeholder="Create New List" autocomplete="off">
+    <button type="submit" name="newListButton">+</button>
+  </form>
+</div>
+
+<div class="box list-collection">
+  <% for(let i = 0; i < listNames.length; i++) { %>
+  <div class="item">
+    <button type="button" name="collectionButton" onclick="window.location.href='/todo/' + '<%= listNames[i].name %>' + '/' + '<%= listNames[i]._id %>'"><%= listNames[i].name %></button>
+  </div>
+  <% }; %>
+
+
+
+</div>
+
+<%- include("../partials/footer"); %>
