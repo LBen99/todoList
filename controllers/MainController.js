@@ -22,7 +22,7 @@ class MainController {
               });
               res.redirect("/todo");
             } else {
-              res.render("pages/list", {
+              res.render("pages/today", {
                 listTitle: "Today",
                 newListItems: foundItems,
                 id: req.params.id
