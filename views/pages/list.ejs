@@ -23,9 +23,7 @@
       <div class="">
         <div class="previous-btn">
           <form action="/todo/previous" method="post">
-            <button type="submit" name="previousList" value="<%= listTitle %>">
-              <
-            </button>
+            <button type="submit" name="previousList" value="<%= listTitle %>"><</button>
           </form>
         </div>
 
@@ -72,7 +70,6 @@
                         </button>
                         <ul class="dropdown-menu">
                           <% allLists.forEach((list) => { %>
-                            <!-- <input id="listId" type="hidden" name="listId" value="<= list._id %>"> -->
                             <li>
                               <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
                               <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
