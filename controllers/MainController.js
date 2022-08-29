@@ -29,7 +29,6 @@ class MainController {
                             res.render("pages/today", {
                                 listTitle: "Today",
                                 lists: foundList,
-                                listId: foundList._id,
                                 date: fullDate,
                                 allLists: foundAllLists
                             })
@@ -45,7 +44,7 @@ class MainController {
         const List = req.models.List
         const itemName = req.body.newItem
         const listName = _.lowerCase(req.body.list)
-        const id = req.params.id
+        const id = req.body.thisId
         const username = req.session.username
        
         const newItem = new Item({
@@ -151,7 +150,6 @@ class MainController {
                                                 res.render("pages/list", {
                                                     listTitle: _.capitalize(customListName),
                                                     lists: aggList,
-                                                    id: aggList._id,
                                                     allLists: foundAllLists
                                                 })                       
                                             }
@@ -163,7 +161,6 @@ class MainController {
                         res.render("pages/list", {
                             listTitle: _.capitalize(customListName),
                             lists: aggList,
-                            id: aggList._id,
                             allLists: foundAllLists
                         })
                     }

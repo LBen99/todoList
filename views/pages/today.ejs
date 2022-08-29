@@ -66,13 +66,12 @@
                         </button>
                         <ul class="dropdown-menu">
                           <% allLists.forEach((list) => { %>
-                            <li><a class="dropdown-item" href="#"><%= list.name %></a></li>
+                            <li><a class="dropdown-item" ><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a></li>
                           <% }) %>
                         </ul>
                       </div>
                     </li>
                   </ul>
-                  <input type="hidden" name="listId" value="<%= listId %>">
                   <button id="submit-item-btn" type="submit" name="list" value="<%= listTitle %>" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
                 </div> 
               </form>

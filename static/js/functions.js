@@ -18,11 +18,11 @@ function getList(username, listName) {
                 "lists.name": listName
             }
         },
-        // {
-        //     $unwind: {
-        //         path: "$lists.items"
-        //     }
-        // },
+        {
+            $unwind: {
+                path: "$lists.items"
+            }
+        },
         {
             $project: {
                 _id: "$lists._id",
@@ -30,11 +30,11 @@ function getList(username, listName) {
                 items: "$lists.items"
             }
         },
-        {
-            $unwind: {
-                path: "$items"
-            }
-        }
+        // {
+        //     $unwind: {
+        //         path: "$items"
+        //     }
+        // }
     ])
     return queryList
 }

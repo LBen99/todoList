@@ -47,7 +47,7 @@
       <div class="list-options">
         <form action="/todo/deleteList" method="post">
           <div class="delete-btn">
-            <button type="submit" name="deleteButton" value="<%= id %>">delete list</button>
+            <button type="submit" name="deleteButton">delete list</button>
           </div>
           <input type="hidden" name="listName" value="<%= listTitle %>">
         </form>
@@ -72,14 +72,18 @@
                         </button>
                         <ul class="dropdown-menu">
                           <% allLists.forEach((list) => { %>
-                            <li><a class="dropdown-item" href="#"><%= list.name %></a></li>
+                            <!-- <input id="listId" type="hidden" name="listId" value="<= list._id %>"> -->
+                            <li>
+                              <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
+                              <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
+                            </li>
                           <% }) %>
                         </ul>
                       </div>
                     </li>
                   </ul>
-                  <!-- <input type="hidden" name="listId" value="<= lists._id %>"> -->
-                  <button id="submit-item-btn" type="submit" name="list" value="<%= listTitle %>" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
+                  <input id="thisId" type="hidden" name="thisId" value="<%= lists[0]._id %>">
+                  <button id="submit-item-btn" type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
                 </div> 
               </form>
             </div>
