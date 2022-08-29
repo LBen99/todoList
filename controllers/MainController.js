@@ -150,6 +150,7 @@ class MainController {
                                                 res.render("pages/list", {
                                                     listTitle: _.capitalize(customListName),
                                                     lists: aggList,
+                                                    date: fullDate,
                                                     allLists: foundAllLists
                                                 })                       
                                             }
@@ -161,6 +162,7 @@ class MainController {
                         res.render("pages/list", {
                             listTitle: _.capitalize(customListName),
                             lists: aggList,
+                            date: fullDate,
                             allLists: foundAllLists
                         })
                     }
