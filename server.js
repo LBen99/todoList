@@ -13,18 +13,21 @@ import cors from "cors"
 import morgan from "morgan"
 import MainController from "./controllers/MainController.js"
 import APIController from "./controllers/APIController.js"
+import UnauthController from "./controllers/UnauthController.js"
 import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import _ from "lodash"
+import session from "express-session"
+import MongoStore from "connect-mongo"
 
 // *********************************
 // Global Variables & Controller Instantiation
 // *********************************
 const PORT = process.env.PORT || 3333
 const MONGO_URI = process.env.MONGO_URI
-
 const mainController = new MainController()
 const apiController = new APIController()
+const unauthController = new UnauthController()
 
 // *********************************
 // MongoDB Connection
@@ -37,10 +40,11 @@ mongoose.connection
 .on("error", (error) => console.log(error))
 
 // *********************************
-// Todo Model Object
+// *Model Objects
 // *********************************
 import Item from "./models/item.js"
 import List from "./models/list.js"
+import User from "./models/user.js"
 
 // *********************************
 // Creating Application Object
@@ -52,6 +56,7 @@ const app = express()
 // *********************************
 const MainRoutes = express.Router()
 const APIRoutes = express.Router()
+const UnauthRoutes = express.Router()
 
 // *********************************
 // Middleware
@@ -66,26 +71,45 @@ app.use(morgan("tiny"))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(session({
+    secret: process.env.SECRET,
+    store: MongoStore.create({mongoUrl: MONGO_URI}),
+    resave: false,
+    saveUninitialized: true
+  }));
+
 app.use((req, res, next) => {
     req.models = {
         Item,
-        List
+        List,
+        User
     }
     next()
 })
 
+app.use("/", UnauthRoutes)
 app.use("/", MainRoutes)
 app.use("/api", APIRoutes)
 // Router Specific Middleware
 APIRoutes.use(cors())
 
 // *********************************
-// Routes that Render Pages with EJS
+// *Unauthenticated Routes
+// *********************************
+UnauthRoutes.get("/", unauthController.main)
+UnauthRoutes.post("/signup", unauthController.signup)
+UnauthRoutes.post("/login", unauthController.login)
+UnauthRoutes.post("/logout", unauthController.logout)
+
+// *********************************
+// *Routes that Render Pages with EJS
 // *********************************
 // MainRoutes.get("/", mainController.index)
 MainRoutes.get("/todo", mainController.today)
 MainRoutes.post("/todo", mainController.createItem)
 MainRoutes.post("/my-lists/createList", mainController.createList)
+// MainRoutes.post("/todo/:customListName/:id", mainController.createList)
+// MainRoutes.post("/todo/:customListName/:id", mainController.createList)
 // MainRoutes.get("/todo/:customListName", mainController.findList)
 MainRoutes.get("/todo/:customListName/:id", mainController.findList)
 // MainRoutes.get("/todo/:id", mainController.findList)
@@ -94,6 +118,7 @@ MainRoutes.post("/todo/deleteList", mainController.deleteList)
 MainRoutes.post("/my-lists", mainController.viewLists)
 MainRoutes.get("/my-lists", mainController.viewLists)
 MainRoutes.post("/todo/next", mainController.next)
+// MainRoutes.get("/todo/next", mainController.next)
 MainRoutes.post("/todo/previous", mainController.previous)
 
 // *********************************

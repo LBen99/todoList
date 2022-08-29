@@ -2,30 +2,47 @@
 
 <%- include("../partials/header"); %>
 
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0"><%= listTitle %></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
+          <a class="nav-link fw-bold py-1 px-0 active" href="/my-lists">Lists</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/account">Account</a>
+          <form action="/logout" method="post">
+              <input type="submit" name="Logout" value="Logout" onChange="this.form.submit()">
+          </form>
+      </nav>
+    </div>
+  </header>
 
-<div class="box" id="heading">
-  <div class="list-heading">
-    <button type="button" name="homeButton" onclick="window.location.href='/todo'">home</button>
-    <h1>My Lists</h1>
+  <!-- <div class="box" id="heading">
+    <div class="list-heading">
+      <button type="button" name="homeButton" onclick="window.location.href='/todo'">home</button>
+      <h1>My Lists</h1>
+    </div>
+  </div> -->
+
+  <div class="box">
+    <form class="item" action="/my-lists/createList" method="post">
+      <input type="text" name="newListName" placeholder="Create New List" autocomplete="off">
+      <button type="submit" name="newListButton">+</button>
+    </form>
   </div>
-</div>
 
-<div class="box">
-  <form class="item" action="/my-lists/createList" method="post">
-    <input type="text" name="newListName" placeholder="Create New List" autocomplete="off">
-    <button type="submit" name="newListButton">+</button>
-  </form>
-</div>
+  <div>
+    <div class="list-group">
+      <% lists.forEach((list) => { %>
+        <% if (list.name !== "today") {%>
 
-<div class="box list-collection">
-  <% for(let i = 0; i < listNames.length; i++) { %>
-  <div class="item">
-    <button type="button" name="collectionButton" onclick="window.location.href='/todo/' + '<%= listNames[i].name %>' + '/' + '<%= listNames[i]._id %>'"><%= listNames[i].name %></button>
+          <a class="list-group-item list-group-item-action bg-dark text-light" href="/todo/<%= list.name %>/<%= list._id %>">
+            <%= list.name.replace(/\w/, c => c.toUpperCase()) %>
+          </a>
+        <% } %>
+      <% }) %>
+          </div>
   </div>
-  <% }; %>
-
-
-
 </div>
 
 <%- include("../partials/footer"); %>

@@ -1,7 +1,8 @@
 import _ from "lodash"
 import * as userCollection from "../static/js/functions.js"
-import {defaultItems} from "../models/item.js"
-
+import {newList} from "../models/list.js"
+import defaultItems from "../schemas/defaultItems.js"
+import fullDate from "../static/js/date.js"
 class MainController {
     
     index(req, res) {
@@ -9,26 +10,28 @@ class MainController {
     }
 
     today(req, res) {
-        const Item = req.models.Item
-
-        Item.find({}, function(err, foundItems) {
-            if (foundItems.length === 0) {
-              Item.insertMany(defaultItems, function(err) {
-                if (err) {
-                  console.log(err);
+        const List = req.models.List
+        const username = req.session.username
+        const queryList = userCollection.getList(username, "today")
+        
+        queryList.exec((err, foundList) => {
+            if (!err) {
+                if (!foundList[0]) {
+                    const list = new List({
+                        username: username,
+                        lists: {name: "today", items: defaultItems}
+                    })
+                    list.save(() => res.redirect("/todo"))
                 } else {
-                  console.log("Successfully Saved defaultItems to DB");
-                };
-              });
-              res.redirect("/todo");
-            } else {
-              res.render("pages/today", {
-                listTitle: "Today",
-                newListItems: foundItems,
-                id: req.params.id
-              });
+                    res.render("pages/today", {
+                        listTitle: "Today",
+                        lists: foundList,
+                        listId: foundList._id,
+                        date: fullDate
+                    })
+                }
             }
-          });
+        })
     }
 
     createItem(req, res) {
@@ -36,167 +39,192 @@ class MainController {
         const List = req.models.List
         const itemName = req.body.newItem
         const listName = _.lowerCase(req.body.list)
-        const id = req.body.listId
+        const id = req.params.id
+        const username = req.session.username
        
-        console.log(id)
-
         const newItem = new Item({
-            name: itemName
+            name: itemName               
         })
-        // const item = new List({
-        //     items: itemName
-        // })
 
-        // Add item to  default list
-        if (listName === "today") {
-            newItem.save(() => res.redirect("/todo"))
-          } else {
-            // Add item to custom list
-            List.update(
-                {name: listName}, 
-                {
-                    $push: {
-                        items: newItem
-                    }
+        List.updateOne(
+            {
+                username: username,
+                "lists.name": listName
+            },
+            {
+               $push: {
+                    "lists.$.items": newItem
+               } 
+            }
+        )
+        .exec((err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                if (listName === "today") {
+                    res.redirect("/todo")
+                } else {
+                    console.log(listName, id)
+                    res.redirect("/todo/" + listName + "/" + id)
                 }
-            )
-            .then(() => res.redirect("/todo/" + listName + "/" + id))
-            //     (err, lists) => {
-            //     List.items.push(newItem)
-            //     lists.save(() => res.redirect("/todo/" + listName + "/" + lists.id));
-            // })
-        }
+            }
+        })
     }
 
     createList(req, res) {
         const List = req.models.List
-        const newListName = _.lowerCase(req.body.newListName)
+        const username = req.session.username
+        const listName = _.lowerCase(req.body.newListName)
+        const queryName = userCollection.getOneName(username, listName)        
 
-        List
-        .findOne({name: newListName})
-        .exec(function(err, lists) {
-            if (!err) {
-                if (!lists) {
-                    const list = new List({
-                    name: newListName,
-                    items: defaultItems
-                    })
-                    // list.save(() => res.redirect("/todo/" + list.name))
-                    list.save(() => res.redirect("/todo/"+ list.name + "/" + list.id))
+        queryName
+        .exec((err, foundList) => {
+            if (err) {
+                console.log(err)
+                res.status(400).send(err)
+            } else {
+                if (foundList[0]) {
+                    res.redirect("/todo/" + foundList[0].name + "/" + foundList[0]._id)                                           
                 } else {
-                    res.render("pages/list", {
-                        listTitle: _.capitalize(lists.name),
-                        newListItems: lists,
-                        id: lists.id
-                        })                                        
+                    const list = new newList({
+                        name: listName, 
+                        items: defaultItems
+                    })
+                    List.updateOne(
+                        {
+                            username: username
+                        },
+                        {
+                            $push: {
+                                lists: list
+                            }
+                        }
+                    )
+                    .exec((err) => {
+                        if (err) {
+                            console.log(err)
+                        } 
+                    })
+                    res.redirect("/todo/" + list.name + "/" + list._id)
                 }
             }
         })
     }
 
     findList(req, res) {
-
-        const id = req.params.id
         const List = req.models.List
-        const customListName = _.lowerCase(req.params.customListName)
+        const username = req.session.username
+        const customListName = req.params.customListName
+        const queryList = userCollection.getList(username, customListName)
 
-        // Find list by url or create new list if not found
-        List.findOne({
-            _id: id,
-            name: customListName
-        }, (err, foundList) => {
-            if (err) {
-                console.log(err)
-                res.status(400).send(err)
-            } else {
-
-                if (customListName !== "my-lists") {
-
-                    if (!foundList) {
-                        // console.log(listName)
-                        const list = new List({
-                            name: customListName,
-                            items: defaultItems
+        queryList
+        .exec((err, aggList) => {
+            if (!err) {
+                if (!aggList) {
+                    const list = new newList({
+                        name: customListName, 
+                        items: defaultItems
+                    })
+                    List.updateOne(
+                        {
+                            username: username
+                        },
+                        {
+                            $push: {
+                                lists: list
+                            }
+                        }
+                    )
+                    .exec(() => {
+                        queryList.exec((err, aggList) => {
+                            if (!err) {
+                                res.render("pages/list", {
+                                    listTitle: _.capitalize(customListName),
+                                    lists: aggList,
+                                    id: aggList._id
+                                })                       
+                            }
                         })
-                        list.save(() => res.redirect("/todo/" + _.capitalize(customListName) + "/" + id))
-                        // list.save(() => res.redirect("/todo/" + "/" + id))
-
-                        } else {
-
-                        
-                        res.render("pages/list", {
-                            listTitle: _.capitalize(foundList.name),
-                            newListItems: foundList.items,
-                            id: foundList.id
-                        })
-                    }
-                } 
+                    })
+                }
+                res.render("pages/list", {
+                    listTitle: _.capitalize(customListName),
+                    lists: aggList,
+                    id: aggList._id
+                })
             }
         })
     }
 
     deleteItem(req, res) {
         const id = req.body.thisListId
-        const Item = req.models.Item
         const List = req.models.List
         const checkedItemId = req.body.checkbox
-        const listName = req.body.thisList
+        const listName = _.lowerCase(req.body.thisList)
+        const username = req.session.username
 
-        // console.log(listName)
-        console.log(checkedItemId)
-        // console.log(listId)
-
-        // Delete item from default list
-        if (listName === "Today") {
-            Item.findByIdAndRemove(checkedItemId, function(err) {
-            if (!err) {
-                res.redirect("/todo")
+        List.updateOne(
+            {
+                username: username,
+                "lists.name": listName
+            },
+            {
+               $pull: {
+                    "lists.$.items": {
+                        _id: checkedItemId
+                    }
+               } 
             }
-            })
-        } else {
-            // Delete item from custom list
-            List.findOneAndUpdate(
-            listName,
-            {$pull: 
-                {items: 
-                    {_id: checkedItemId}
-                }
-            }, (err) => {
-                if (!err) {
-                    res.redirect("/todo/" + listName + "/" + id)
+        )
+        .exec((err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                if (listName === "today") {
+                    res.redirect("/todo")
                 } else {
-                    console.log(err)
+                    res.redirect("/todo/" + listName + "/" + id)
                 }
-            })
-
-            
-            
-        }
+            }
+        })
     }
 
     deleteList(req, res) {
         const List = req.models.List
-        const id = req.body.deleteButton
-        console.log(id)
-        List.findByIdAndDelete(id, function(err) {
-            if (!err) {
-            res.redirect("/todo")
+        const username = req.session.username
+        const name = req.body.listName
+
+        List.updateOne(
+            {
+                username: username,
+            },
+            {
+               $pull: {
+                    "lists": {
+                        name: name
+                    }
+               } 
+            }
+        )
+        .exec((err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.redirect("/todo")
             }
         })
     }
-//! Capitalize list names
+
     viewLists(req, res) {
         const currentList = req.body.currentList
-        const queryNames = userCollection.getListNames()
+        const username = req.session.username
+        const queryNames = userCollection.getListNames(username)
 
-        queryNames
-        .exec(function(err, lists) {
+        queryNames.exec(function(err, foundLists) {
             if (!err) {
-            const names = lists
             res.render("pages/viewCollection", {
-                listTitle: _.capitalize(currentList),
-                listNames: names,
-                id: names.id
+                listTitle: "My Lists",
+                lists: foundLists
                 })
             }
         })
@@ -204,86 +232,62 @@ class MainController {
 
     next(req, res) {
         const listName = _.lowerCase(req.body.nextList)
+        const username = req.session.username
+        const queryFirst = userCollection.getFirstName(username)
+        const queryNext = userCollection.getNextName(username, listName)
+        const queryLast = userCollection.getLastName(username)
 
-        const queryFirst = userCollection.getFirstName()
-        const queryNext = userCollection.getNextName(listName)
-        const queryLast = userCollection.getLastName()
-      
-        let lastName = queryLast
-        .exec(function(err, list) {
-            if (err) {
-                console.log(err)
-            } else {
-                lastName = list.name
-                return lastName
-                }
-            })
-      
-        if (listName === "today") {
-            // const id = req.params.id
-      
-        queryFirst
-        .exec(function(err, list) {
-            if (err) {
-                return console.log("err")
-            } else {
-                // res.redirect("/todo/" + list.name)
-                res.redirect("/todo/" + list.name + "/" + list.id)
-                }
-            })
-
-        } else {
-      
-        queryNext
-        .exec(function(err, list) {
-            if (listName === lastName) {
-              res.redirect("/todo")
-            } else {
-                // res.redirect("/todo/" + list.name)
-                res.redirect("/todo/" + list.name + "/" + list.id)
-                }
-            })
-        } 
+        queryNext.exec((err, nextList) => {
+            if (!err) {
+                queryLast.exec((err, lastList) => {
+                    if (!err) {
+                        queryFirst.exec((err, firstList) => {
+                            if (!err) {
+                                if (listName === lastList[0].name) {
+                                    res.redirect("/todo/" + firstList[0].name + "/" + firstList[0]._id)
+                                } else {
+                                    if (nextList[0].name === "today") {
+                                        res.redirect("/todo")
+                                    } else {
+                                        res.redirect("/todo/" + nextList[0].name + "/" + nextList[0]._id)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        })
     }
 
     previous(req, res) {
         const listName = _.lowerCase(req.body.previousList)
+        const username = req.session.username
+        const queryLast = userCollection.getLastName(username)
+        const queryPrevious = userCollection.getPreviousName(username, listName)
+        const queryFirst = userCollection.getFirstName(username)
 
-        const queryLast = userCollection.getLastName()
-        const queryPrevious = userCollection.getPreviousName(listName)
-        const queryFirst = userCollection.getFirstName()
-
-        let firstName = queryFirst
-        .exec(function(err, list) {
-            if (err) {
-            console.log(err)
-            } else {
-            firstName = list.name
-            return firstName
+        queryPrevious.exec((err, previousList) => {
+            if (!err) {
+                queryLast.exec((err, lastList) => {
+                    if (!err) {
+                        queryFirst.exec((err, firstList) => {
+                            if (!err) {
+                                if (listName === firstList[0].name) {
+                                    res.redirect("/todo/" + lastList[0].name + "/" + lastList[0]._id)
+                                } else {
+                                    if (previousList[0].name === "today") {
+                                        res.redirect("/todo")
+                                    } else {
+                                        res.redirect("/todo/" + previousList[0].name + "/" + previousList[0]._id)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
             }
         })
-
-        if (listName === "today") {
-            queryLast
-            .exec(function(err, list) {
-            if (err) {
-                return console.log("err")
-            } else {
-                // res.redirect("/todo/" + list.name)
-                res.redirect("/todo/" + list.name + "/" + list.id)
-                }
-            })
-        } else {
-            queryPrevious
-            .exec(function(err, list) {
-            if (listName === firstName) {
-                res.redirect("/todo")
-            } else {
-                // res.redirect("/todo/" + list.name)
-                res.redirect("/todo/" + list.name + "/" + list.id)
-                }
-            })
-        }
     }
 }
 
