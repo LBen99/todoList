@@ -13,23 +13,29 @@ class MainController {
         const List = req.models.List
         const username = req.session.username
         const queryList = userCollection.getList(username, "today")
+        const queryNames = userCollection.getListNames(username)
         
         queryList.exec((err, foundList) => {
             if (!err) {
-                if (!foundList[0]) {
-                    const list = new List({
-                        username: username,
-                        lists: {name: "today", items: defaultItems}
-                    })
-                    list.save(() => res.redirect("/todo"))
-                } else {
-                    res.render("pages/today", {
-                        listTitle: "Today",
-                        lists: foundList,
-                        listId: foundList._id,
-                        date: fullDate
-                    })
-                }
+                queryNames.exec((err, foundAllLists) => {
+                    if (!err) {
+                        if (!foundList[0]) {
+                            const list = new List({
+                                username: username,
+                                lists: {name: "today", items: defaultItems}
+                            })
+                            list.save(() => res.redirect("/todo"))
+                        } else {
+                            res.render("pages/today", {
+                                listTitle: "Today",
+                                lists: foundList,
+                                listId: foundList._id,
+                                date: fullDate,
+                                allLists: foundAllLists
+                            })
+                        }
+                    }
+                })
             }
         })
     }
@@ -116,41 +122,51 @@ class MainController {
         const username = req.session.username
         const customListName = req.params.customListName
         const queryList = userCollection.getList(username, customListName)
+        const queryNames = userCollection.getListNames(username)
 
-        queryList
-        .exec((err, aggList) => {
+        queryList.exec((err, aggList) => {
             if (!err) {
-                if (!aggList) {
-                    const list = new newList({
-                        name: customListName, 
-                        items: defaultItems
-                    })
-                    List.updateOne(
-                        {
-                            username: username
-                        },
-                        {
-                            $push: {
-                                lists: list
-                            }
+                queryNames.exec((err, foundAllLists) => {
+                    if (!err) {
+                        if (!aggList) {
+                            const list = new newList({
+                                name: customListName, 
+                                items: defaultItems
+                            })
+                            List.updateOne(
+                                {
+                                    username: username
+                                },
+                                {
+                                    $push: {
+                                        lists: list
+                                    }
+                                }
+                            )
+                            .exec(() => {
+                                queryList.exec((err, aggList) => {
+                                    if (!err) {
+                                        queryNames.exec((err, foundAllLists) => {
+                                            if (!err) {
+                                                res.render("pages/list", {
+                                                    listTitle: _.capitalize(customListName),
+                                                    lists: aggList,
+                                                    id: aggList._id,
+                                                    allLists: foundAllLists
+                                                })                       
+                                            }
+                                        })
+                                    }
+                                })
+                            })
                         }
-                    )
-                    .exec(() => {
-                        queryList.exec((err, aggList) => {
-                            if (!err) {
-                                res.render("pages/list", {
-                                    listTitle: _.capitalize(customListName),
-                                    lists: aggList,
-                                    id: aggList._id
-                                })                       
-                            }
+                        res.render("pages/list", {
+                            listTitle: _.capitalize(customListName),
+                            lists: aggList,
+                            id: aggList._id,
+                            allLists: foundAllLists
                         })
-                    })
-                }
-                res.render("pages/list", {
-                    listTitle: _.capitalize(customListName),
-                    lists: aggList,
-                    id: aggList._id
+                    }
                 })
             }
         })
