@@ -38,6 +38,15 @@ $(() => {
     })
 })
 
+$(() => {
+    $(".get-started-button").click(() => {
+        $("#loginModalLabel").removeClass("active")
+        $("#modalLoginForm").hide()   
+        $("#signupModalLabel").addClass("active")
+        $("#modalSignupForm").show()
+    })
+})
+
 // *********************************
 // *List Selection Dropdown
 // *********************************

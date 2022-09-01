@@ -1,9 +1,13 @@
 import bcrypt from "bcryptjs"
-
+import mainItems from "../schemas/mainItems.js"
+import fullDate from "../static/js/date.js"
 class UnauthController {
     
     main(req, res) {
-        res.render("pages/main.ejs")
+        res.render("pages/main", {
+            items: mainItems,
+            date: fullDate
+        })
     }
 
     signup(req, res) {

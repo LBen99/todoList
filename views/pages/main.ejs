@@ -69,6 +69,19 @@
     </header>
 
     <main>
+        <div class="card get-started-card bg-dark mt-5 text-center">
+            <h1 class="card-header"><%= date %></h1>
+            <div class="card-body">
+                <% items.forEach((item) => { %>
+                    <div>
+                      <p><%= item.name %></p>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary get-started-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started!</a>
+            </div>
+        </div>    
     </main>
 </div>
 
