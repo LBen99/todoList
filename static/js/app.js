@@ -12,6 +12,15 @@ $(() => {
 })
 
 $(() => {
+    $(".signup-button").click(() => {
+        $("#loginModalLabel").removeClass("active")
+        $("#modalLoginForm").hide()   
+        $("#signupModalLabel").addClass("active")
+        $("#modalSignupForm").show()
+    })
+})
+
+$(() => {
     $("#loginModalLabel").click(() => {
         $("#signupModalLabel").removeClass("active")
         $("#modalSignupForm").hide()

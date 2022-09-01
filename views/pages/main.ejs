@@ -5,51 +5,10 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
       <div>
-        <h3 class="float-md-start mb-0">To-Do</h3>
-        <!-- <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/todo">Today</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/my-lists">Lists</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/account">Account</a>
-            <div class="collapse navbar-collapse dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Login
-                </button>
-                <div class="dropdown-menu">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Login</h5>
-                            <form action="/login" method="post">
-                                <input type="text" name="username" placeholder="username">
-                                <input type="password" name="password" placeholder="password">
-                                <input type="submit" value="Login">
-                            </form>
-                        </div>
-                    </div>        
-                </div>
-            </div>
-        </nav> -->
+        <h3 class="float-md-start mb-0">To-Do List</h3>
         <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/todo">Today</a>                       
-            <a class="nav-link fw-bold py-1 px-0" href="/my-lists">Lists</a>          
-            <a class="nav-link fw-bold py-1 px-0" href="/account">Account</a>                      
-            <!-- <a class="nav-link fw-bold py-1 px-0 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Login
-            </a>
-            <div class="dropdown">
-                <div class="dropdown-menu">
-                    <div class="dropdown-item">                                
-                        <h5>Login</h5>
-                        <form action="/login" method="post">
-                            <input type="text" name="username" placeholder="username">
-                            <input type="password" name="password" placeholder="password">
-                            <input type="submit" value="Login">
-                        </form>                      
-                    </div>        
-                </div>
-            </div>  -->
-            <a class="nav-link fw-bold py-1 px-0 login-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
-                Login
-            </a>
+            <a class="nav-link fw-bold py-1 px-0 login-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+            <a class="nav-link fw-bold py-1 px-0 signup-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Sign Up</a>
             <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -102,34 +61,6 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- <div id="modalLoginForm" class="collapse">
-                            <form action="/login" method="post">
-                                <div class="modal-body">
-                                        <input type="text" name="username" placeholder="username">
-                                        <br>
-                                        <input type="password" name="password" placeholder="password">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Login!</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="modalSignupForm" class="collapse">
-                            <form action="/signup" method="post">
-                                <div class="modal-body">
-                                    <input type="text" name="username" placeholder="username">
-                                    <br>
-                                    <input type="email" name="email" placeholder="email">
-                                    <br>
-                                    <input type="password" name="password" placeholder="password">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Sign Up!</button>
-                                </div>
-                            </form>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -138,26 +69,6 @@
     </header>
 
     <main>
-        <h1>main</h1>
-
-        <div id="signup">
-            <form action="/signup" method="post">
-                <h2>Signup Form</h2>
-                <input type="text" name="username" placeholder="username">
-                <input type="text" name="email" placeholder="email">
-                <input type="password" name="password" placeholder="password">
-                <input type="submit" value="Signup">
-            </form>
-        </div>
-
-        <!-- <div id="login">
-            <form action="/login" method="post">
-                <h2>Login Form</h2>
-                <input type="text" name="username" placeholder="username">
-                <input type="password" name="password" placeholder="password">
-                <input type="submit" value="Login">
-            </form>
-        </div> -->
     </main>
 </div>
 

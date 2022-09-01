@@ -148,6 +148,7 @@ footer {
 /*********************************/
 /*******LOGIN/SIGNUP MODAL********/
 /*********************************/
+
 #loginModalLabel {
   color: #000;
 }
@@ -163,10 +164,6 @@ footer {
 #signupModalLabel.active {
   color: #fff;
 }
-
-/* .div.nav.nav-pills > a.active {
-  color: #333;
-} */
 
 .nav-pills {
   --bs-nav-pills-link-active-bg: #6c757d;
