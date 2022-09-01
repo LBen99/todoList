@@ -144,3 +144,35 @@ footer {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+
+/*********************************/
+/*******LOGIN/SIGNUP MODAL********/
+/*********************************/
+#loginModalLabel {
+  color: #000;
+}
+
+#loginModalLabel.active {
+  color: #fff;
+}
+
+#signupModalLabel {
+  color: #000;
+}
+
+#signupModalLabel.active {
+  color: #fff;
+}
+
+/* .div.nav.nav-pills > a.active {
+  color: #333;
+} */
+
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #6c757d;
+}
+
+.modal-content {
+  color: #000;
+  text-align: left;
+}
