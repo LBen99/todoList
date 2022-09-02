@@ -242,25 +242,28 @@ class MainController {
             items: defaultItems    
         })
 
-        List.deleteOne(
+        List.updateOne(
             {
-                username: username
+                username: username,
+                "lists.name": "today"
             },
             {
-                "lists": {
-                    name: "today"
+                $pull: {
+                    "lists.$.items": {}
                 }
             }
-        ).exec(List.updateOne(
+        ).exec()
+        List.updateOne(
             {
-                username: username
+                username: username,
+                "lists.name": "today"
             },
             {
                 $push: {
-                    lists: list
+                    "lists.$.items": defaultItems
                 }
             }
-        ).exec(list.save(() => res.redirect("/todo"))))
+        ).exec(res.redirect("/todo"))
         
     }
 
