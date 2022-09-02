@@ -15,87 +15,99 @@
   </header>
 
   <main class="px-3">
-
-    <div class="box" id="heading">
-      <div class="">
-        <div class="previous-btn">
+    <div class="list-header-nav mt-5">
+      <nav class="nav nav-masthead justify-content-center">
+        <div class="nav-link previous-list-button">
           <form action="/todo/previous" method="post">
             <button type="submit" name="previousList" value="<%= listTitle %>">
-              <
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+                <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+              </svg>
             </button>
           </form>
         </div>
-
-        <div class="list-heading">
-          <form action="/my-lists" method="post">
-            <button class="list-heading-btn" type="submit" name="currentList" value="<%= listTitle %>" onclick="window.location.href='viewCollection.ejs'">
-              <h1><%= listTitle %></h1>
+        <div class="nav-link today-reset-button">
+          <form action="/todo/reset" method="post">
+            <button type="submit" name="resetList" value="<%= listTitle %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+              </svg>
             </button>
           </form>
         </div>
-
-        <div class="next-btn">
+        <div class="nav-item list-heading px-3">
+          <h2><%= listTitle %></h2>
+        </div>
+        <div class="nav-link new-item-button">
+          <button class="add-item-btn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addItemModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="nav-link next-list-button">
           <form action="/todo/next" method="post">
-            <button type="submit" name="nextList" value="<%= listTitle %>">></button>
+            <button type="submit" name="nextList" value="<%= listTitle %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+                <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+              </svg>
+            </button>
           </form>
         </div>
-      </div>
+      </nav>
+    </div>
 
-      <div class="list-options">
-        <button class="add-item-btn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addItemModal">
-          +
-        </button>
-        <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content rounded-4 shadow">
-              <div class="modal-header">
-                <h3 class="mb-0">Create New Task!</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form action="/todo" method="post">        
-                <div id="modalAddItemForm">
-                  <div class="modal-body">
-                    <div class="mb-3 px-3">
-                      <label for="newItemInput" class="form-label">New Item</label>
-                      <input type="text" class="form-control" name="newItem" id="newItemInput" autocomplete="off">
-                    </div>
-                    <div class="dropdown-center px-3">
-                      <button class="btn add-item-modal-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <%= listTitle %>
-                      </button>
-                      <ul class="dropdown-menu">
-                        <% allLists.forEach((list) => { %>
-                          <li>
-                            <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
-                            <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
-                          </li>
-                        <% }) %>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <input id="thisId" type="hidden" name="thisId" value="<%= lists[0]._id %>">
-                    <button type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
-                  </div>           
-                </div>
-              </form>
-            </div>
+    <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header">
+            <h3 class="mb-0">Create New Task!</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <form action="/todo" method="post">        
+            <div id="modalAddItemForm">
+              <div class="modal-body">
+                <div class="mb-3 px-3">
+                  <label for="newItemInput" class="form-label">New Item</label>
+                  <input type="text" class="form-control" name="newItem" id="newItemInput" autocomplete="off">
+                </div>
+                <div class="dropdown-center px-3">
+                  <button class="btn add-item-modal-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= listTitle %>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <% allLists.forEach((list) => { %>
+                      <li>
+                        <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
+                        <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
+                      </li>
+                    <% }) %>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input id="thisId" type="hidden" name="thisId" value="<%= lists[0]._id %>">
+                <button type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
+              </div>           
+            </div>
+          </form>
         </div>
       </div>
+    </div>
 
-      <div class="box">
-
-        <% lists.forEach((item) => { %>
-          <form action="/todo/deleteItem" method="post">
-            <div class="item">
-              <input type="checkbox" name="checkbox" value="<%= item.items._id %>" onChange="this.form.submit()">
-              <p><%= item.items.name %></p>
-            </div>
-            <input type="hidden" name="thisList" value="<%= listTitle %>">
-          </form>
-          <% }) %>
-      </div>
+    <div class="box">
+      <% lists.forEach((list) => { %>
+        <form action="/todo/deleteItem" method="post">
+          <div class="item">
+            <input type="checkbox" name="checkbox" value="<%= list.items._id %>" onChange="this.form.submit()">
+            <p><%= list.items.name %></p>
+          </div>
+          <input type="hidden" name="thisListId" value="<%= list._id %>">
+          <input type="hidden" name="thisList" value="<%= listTitle %>">
+        </form>
+      <% }) %>
+    </div>   
 
   </main>
 </div>
