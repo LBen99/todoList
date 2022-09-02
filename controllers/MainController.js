@@ -210,16 +210,19 @@ class MainController {
     deleteList(req, res) {
         const List = req.models.List
         const username = req.session.username
-        const name = req.body.listName
+        const listName = _.lowerCase(req.body.deleteButton)
+
+        console.log(listName)
 
         List.updateOne(
             {
                 username: username,
+                
             },
             {
                $pull: {
-                    "lists": {
-                        name: name
+                    lists: {
+                        name: listName
                     }
                } 
             }
