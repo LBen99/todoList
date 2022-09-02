@@ -9,10 +9,7 @@
       <nav class="nav nav-masthead justify-content-center float-md-end">
           <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
           <a class="nav-link fw-bold py-1 px-0" href="/my-lists">Lists</a>
-          <a class="nav-link fw-bold py-1 px-0" href="/account">Account</a>
-          <form action="/logout" method="post">
-              <input type="submit" name="Logout" value="Logout" onChange="this.form.submit()">
-          </form>
+          <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
       </nav>
     </div>
   </header>
@@ -49,39 +46,41 @@
           </div>
           <input type="hidden" name="listName" value="<%= listTitle %>">
         </form>
-        <button class="add-item-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button class="add-item-btn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addItemModal">
           +
         </button>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content rounded-4 shadow">
-              <form action="/todo" method="post">
-                <div class="modal-body p-5">
-                  <h2 class="fw-bold mb-0">Add new task!</h2>
-                  <ul class="d-grid gap-4 my-5 list-unstyled">
-                    <li class="d-flex gap-4">
-                      <input class="form-control" type="text" name="newItem" placeholder="New Item" autocomplete="off">
-                    </li>
-                    <li class="d-flex gap-4">
-                      <div class="dropdown-center">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <%= listTitle %>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <% allLists.forEach((list) => { %>
-                            <li>
-                              <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
-                              <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
-                            </li>
-                          <% }) %>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                  <input id="thisId" type="hidden" name="thisId" value="<%= lists[0]._id %>">
-                  <button id="submit-item-btn" type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
-                </div> 
+              <div class="modal-header">
+                <h3 class="fw-bold mb-0">Add new task!</h3>
+              </div>
+              <form action="/todo" method="post">        
+                <div id="modalAddItemForm">
+                  <div class="modal-body">
+                    <div class="mb-3 px-3">
+                      <label for="newItemInput" class="form-label">New Item</label>
+                      <input type="text" class="form-control" name="newItem" id="newItemInput" autocomplete="off">
+                    </div>
+                    <div class="dropdown-center px-3">
+                      <button class="btn add-item-modal-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <%= listTitle %>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <% allLists.forEach((list) => { %>
+                          <li>
+                            <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
+                            <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
+                          </li>
+                        <% }) %>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input id="thisId" type="hidden" name="thisId" value="<%= lists[0]._id %>">
+                    <button type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg save-item-button mt-5 w-100" data-bs-dismiss="modal">Save task!</button>
+                  </div>           
+                </div>
               </form>
             </div>
           </div>
@@ -89,7 +88,6 @@
       </div>
 
       <div class="box">
-
         <% lists.forEach((list) => { %>
           <form action="/todo/deleteItem" method="post">
             <div class="item">
@@ -101,7 +99,6 @@
           </form>
         <% }) %>
       </div>
-
   </main>
 </div>
 

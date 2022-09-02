@@ -99,7 +99,7 @@ APIRoutes.use(cors())
 UnauthRoutes.get("/", unauthController.main)
 UnauthRoutes.post("/signup", unauthController.signup)
 UnauthRoutes.post("/login", unauthController.login)
-UnauthRoutes.post("/logout", unauthController.logout)
+UnauthRoutes.get("/logout", unauthController.logout)
 
 // *********************************
 // *Routes that Render Pages with EJS
