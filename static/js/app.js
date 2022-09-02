@@ -59,3 +59,11 @@ $(function() {
         $("#thisId").val($(this).data("value"))
     })  
   })
+
+// *********************************
+// *Strike Through Task Text
+// *********************************
+
+$(".task-name").click(function() {
+    $(this).toggleClass("is-striked")
+})

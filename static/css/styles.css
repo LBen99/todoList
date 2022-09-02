@@ -258,3 +258,7 @@ input.form-control:focus {
   color: #EEEEEE;
   cursor: pointer;
 }
+
+.is-striked {
+  text-decoration: line-through;
+}
