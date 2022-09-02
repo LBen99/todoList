@@ -126,6 +126,7 @@ input:checked+p {
 
 input[type="checkbox"] {
   margin: 20px;
+  display: none;
 }
 
 p {
@@ -247,4 +248,13 @@ input.form-control,
 input.form-control:focus {
   background-color: #393E46;
   color: #EEEEEE;
+}
+
+.delete-item-checkbox {
+  color: #eeeeee7c;
+}
+
+.delete-item-checkbox:hover {
+  color: #EEEEEE;
+  cursor: pointer;
 }
