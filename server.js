@@ -104,23 +104,17 @@ UnauthRoutes.get("/logout", unauthController.logout)
 // *********************************
 // *Routes that Render Pages with EJS
 // *********************************
-// MainRoutes.get("/", mainController.index)
 MainRoutes.get("/todo", mainController.today)
 MainRoutes.post("/todo", mainController.createItem)
 MainRoutes.post("/my-lists/createList", mainController.createList)
-// MainRoutes.post("/todo/:customListName/:id", mainController.createList)
-// MainRoutes.post("/todo/:customListName/:id", mainController.createList)
-// MainRoutes.get("/todo/:customListName", mainController.findList)
 MainRoutes.get("/todo/:customListName/:id", mainController.findList)
-// MainRoutes.get("/todo/:id", mainController.findList)
 MainRoutes.post("/todo/deleteItem", mainController.deleteItem)
 MainRoutes.post("/todo/deleteList", mainController.deleteList)
+MainRoutes.post("/todo/reset", mainController.reset)
 MainRoutes.post("/my-lists", mainController.viewLists)
 MainRoutes.get("/my-lists", mainController.viewLists)
 MainRoutes.post("/todo/next", mainController.next)
-// MainRoutes.get("/todo/next", mainController.next)
 MainRoutes.post("/todo/previous", mainController.previous)
-
 // *********************************
 // API Routes that Return JSON
 // *********************************

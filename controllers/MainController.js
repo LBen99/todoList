@@ -233,6 +233,37 @@ class MainController {
         })
     }
 
+    reset(req, res) {
+        const List = req.models.List
+        const username = req.session.username
+
+        const list = new newList({
+            name: "today",
+            items: defaultItems    
+        })
+
+        List.deleteOne(
+            {
+                username: username
+            },
+            {
+                "lists": {
+                    name: "today"
+                }
+            }
+        ).exec(List.updateOne(
+            {
+                username: username
+            },
+            {
+                $push: {
+                    lists: list
+                }
+            }
+        ).exec(list.save(() => res.redirect("/todo"))))
+        
+    }
+
     viewLists(req, res) {
         const currentList = req.body.currentList
         const username = req.session.username
