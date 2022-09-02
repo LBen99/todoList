@@ -170,6 +170,30 @@ footer {
 }
 
 /*********************************/
+/** List Cards
+/*********************************/
+
+.list-card-name {
+  text-decoration: none;
+}
+
+.today-list-name {
+  font-weight: bolder;
+}
+
+.all-list-names,
+.today-list-name {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#newListInput::placeholder {
+  color: #eeeeee7c;
+}
+
+/*********************************/
 /** Button Style
 /*********************************/
 
@@ -178,7 +202,9 @@ footer {
 .add-item-modal-dropdown:focus,
 .modal-login-button:hover,
 .modal-signup-button:hover,
-.get-started-button:hover {
+.get-started-button:hover,
+.all-list-cards:hover,
+.new-list-button:hover {
   background-color: #eeeeee7c;
   color:#EEEEEE;
 }
@@ -187,7 +213,10 @@ footer {
 .add-item-modal-dropdown,
 .modal-login-button,
 .modal-signup-button,
-.get-started-button {
+.get-started-button,
+.all-list-cards,
+.new-list-card,
+.new-list-button {
   background-color: #393E46;
   border-color: #EEEEEE;
   color: #EEEEEE;

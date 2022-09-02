@@ -7,38 +7,46 @@
     <div>
       <h3 class="float-md-start mb-0"><%= listTitle %></h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
-          <a class="nav-link fw-bold py-1 px-0 active" href="/my-lists">Lists</a>
-          <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
+        <a class="nav-link fw-bold py-1 px-0 active" href="/my-lists">Lists</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
       </nav>
     </div>
   </header>
 
-  <!-- <div class="box" id="heading">
-    <div class="list-heading">
-      <button type="button" name="homeButton" onclick="window.location.href='/todo'">home</button>
-      <h1>My Lists</h1>
+  <div class="mt-5 pt-3">
+    <div class="container">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4">
+        <% lists.forEach((list) => { %>
+          <% if (list.name !== "today") { %>
+            <div class="col">
+              <a class="list-card-name" href="/todo/<%= list.name %>/<%= list._id %>">
+                <div class="card all-list-cards mb-4">
+                  <div class="card-body list-card-body">
+                    <p class="all-list-names"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <% } %>
+        <% }) %>
+      </div>
+      <div class="row row-cols-1 mt-5">
+        <div class="col">
+              <label for="newListInput">
+                <h5>Create New List!</h5>
+              </label>
+              <form class="row g-2 py-2" action="/my-lists/createList" method="post">
+                <div class="col-10">
+                  <input type="text" class="form-control" name="newListName" id="newListInput" placeholder="Name" autocomplete="off">
+                </div>
+                <div class="col-2 text-center">
+                  <button class="btn new-list-button" type="submit" name="newListButton">Create!</button>
+                </div>
+              </form>
+        </div>
+      </div>
     </div>
-  </div> -->
-
-  <div class="box">
-    <form class="item" action="/my-lists/createList" method="post">
-      <input type="text" name="newListName" placeholder="Create New List" autocomplete="off">
-      <button type="submit" name="newListButton">+</button>
-    </form>
-  </div>
-
-  <div>
-    <div class="list-group">
-      <% lists.forEach((list) => { %>
-        <% if (list.name !== "today") {%>
-
-          <a class="list-group-item list-group-item-action bg-dark text-light" href="/todo/<%= list.name %>/<%= list._id %>">
-            <%= list.name.replace(/\w/, c => c.toUpperCase()) %>
-          </a>
-        <% } %>
-      <% }) %>
-          </div>
   </div>
 </div>
 
