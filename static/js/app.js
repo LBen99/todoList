@@ -65,5 +65,5 @@ $(function() {
 // *********************************
 
 $(".task-name").click(function() {
-    $(this).toggleClass("is-striked")
+    $(this).toggleClass("is-striked")        
 })
