@@ -130,44 +130,48 @@ class MainController {
             if (!err) {
                 queryNames.exec((err, foundAllLists) => {
                     if (!err) {
-                        if (!aggList) {
-                            const list = new newList({
-                                name: customListName, 
-                                items: defaultItems
-                            })
-                            List.updateOne(
-                                {
-                                    username: username
-                                },
-                                {
-                                    $push: {
-                                        lists: list
-                                    }
-                                }
-                            )
-                            .exec(() => {
-                                queryList.exec((err, aggList) => {
-                                    if (!err) {
-                                        queryNames.exec((err, foundAllLists) => {
-                                            if (!err) {
-                                                res.render("pages/list", {
-                                                    listTitle: _.capitalize(customListName),
-                                                    lists: aggList,
-                                                    date: fullDate,
-                                                    allLists: foundAllLists
-                                                })                       
-                                            }
-                                        })
-                                    }
+                        if (customListName !== "today") {
+                            if (!aggList) {
+                                const list = new newList({
+                                    name: customListName, 
+                                    items: defaultItems
                                 })
+                                List.updateOne(
+                                    {
+                                        username: username
+                                    },
+                                    {
+                                        $push: {
+                                            lists: list
+                                        }
+                                    }
+                                )
+                                .exec(() => {
+                                    queryList.exec((err, aggList) => {
+                                        if (!err) {
+                                            queryNames.exec((err, foundAllLists) => {
+                                                if (!err) {
+                                                    res.render("pages/list", {
+                                                        listTitle: _.capitalize(customListName),
+                                                        lists: aggList,
+                                                        date: fullDate,
+                                                        allLists: foundAllLists
+                                                    })                       
+                                                }
+                                            })
+                                        }
+                                    })
+                                })
+                            }
+                            res.render("pages/list", {
+                                listTitle: _.capitalize(customListName),
+                                lists: aggList,
+                                date: fullDate,
+                                allLists: foundAllLists
                             })
+                        } else {
+                            res.redirect("/todo")
                         }
-                        res.render("pages/list", {
-                            listTitle: _.capitalize(customListName),
-                            lists: aggList,
-                            date: fullDate,
-                            allLists: foundAllLists
-                        })
                     }
                 })
             }
