@@ -174,12 +174,55 @@ class MainController {
         })
     }
 
+    strikeItem(req, res) {
+        const List = req.models.List
+        const username = req.session.username
+        const listId = req.body.thisListId
+        const listName = _.lowerCase(req.body.thisList)
+        const taskId = req.body.thisTaskId
+        const strikedTask = req.body.strikedTask
+
+        if (strikedTask === "false") {
+            List.updateOne(
+                {
+                    username: username,
+                    "lists.name": listName
+                },
+                {
+                    $set: {
+                        "lists.$.items.$[item].strike": true
+                    }
+                },
+                {
+                    arrayFilters: [{"item._id": taskId}]
+                }
+            ).exec(res.redirect("/todo/" + listName + "/" + listId))
+        } else if (strikedTask === "true") {
+            List.updateOne(
+                {
+                    username: username,
+                    "lists.name": listName
+                },
+                {
+                    $set: {
+                        "lists.$.items.$[item].strike": false
+                    }
+                },
+                {
+                    arrayFilters: [{"item._id": taskId}]
+                }
+            ).exec(res.redirect("/todo/" + listName + "/" + listId))
+        }
+    }
+
     deleteItem(req, res) {
         const id = req.body.thisListId
         const List = req.models.List
         const checkedItemId = req.body.checkbox
         const listName = _.lowerCase(req.body.thisList)
         const username = req.session.username
+
+        console.log(checkedItemId)
 
         List.updateOne(
             {
@@ -216,8 +259,7 @@ class MainController {
 
         List.updateOne(
             {
-                username: username,
-                
+                username: username,   
             },
             {
                $pull: {

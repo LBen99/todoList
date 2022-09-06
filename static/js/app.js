@@ -65,5 +65,25 @@ $(function() {
 // *********************************
 
 $(".task-name").click(function() {
-    $(this).toggleClass("is-striked")        
+    $(this).toggleClass("is-striked")
+    const id = $(this).attr("id")
+    const strike = $(this).attr("value")
+    $(".task-id").attr("value", id)
+    $(".strike-task").attr("value", strike)
+    $(".strike-item-form").submit()    
+})
+
+$(document).ready(function() {
+    $(".strike-status").each(function() {
+        const id = $(this).attr("id")
+        const strike = $(this).attr("value")
+        const doStrike = {id: id, strike: strike}
+        $(".task-name").each(function() {
+            if (doStrike.strike === "true" && $(this).attr("id") === doStrike.id) {
+                $(this).addClass("is-striked")
+            } else if (doStrike.strike === "false" && $(this).attr("id") === doStrike.id) {
+                $(this).removeClass("is-striked")
+            }
+        })
+    })
 })
