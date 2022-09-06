@@ -218,11 +218,11 @@ class MainController {
     deleteItem(req, res) {
         const id = req.body.thisListId
         const List = req.models.List
-        const checkedItemId = req.body.checkbox
+        const deleteItemId = req.body.deleteItemButton
         const listName = _.lowerCase(req.body.thisList)
         const username = req.session.username
 
-        console.log(checkedItemId)
+        console.log(deleteItemId)
 
         List.updateOne(
             {
@@ -232,7 +232,7 @@ class MainController {
             {
                $pull: {
                     "lists.$.items": {
-                        _id: checkedItemId
+                        _id: deleteItemId
                     }
                } 
             }

@@ -87,3 +87,13 @@ $(document).ready(function() {
         })
     })
 })
+
+// *********************************
+// *Delete Item Button
+// *********************************
+
+// $(".delete-item-button").click(function() {
+//     const id = $(this).attr("value")
+    // $(".delete-item-id").attr("value", id)
+    // $(this).submit()
+// })

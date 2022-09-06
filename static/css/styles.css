@@ -250,11 +250,11 @@ input.form-control:focus {
   color: #EEEEEE;
 }
 
-.delete-item-checkbox {
+.delete-item-button-icon {
   color: #eeeeee7c;
 }
 
-.delete-item-checkbox:hover {
+.delete-item-button-icon:hover {
   color: #EEEEEE;
   cursor: pointer;
 }
