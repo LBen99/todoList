@@ -40,9 +40,22 @@ function getList(username, listName) {
 }
 
 //Get list id
+// function getListId(username, listName) {
+//     const queryId = List
+//     .findOne({username: username, name: listName})
+//     return queryId
+// }
 function getListId(username, listName) {
     const queryId = List
-    .findOne({username: username, name: listName})
+    .findOne(
+        {
+            username: username,
+            lists: {
+                name: listName
+            }
+        }
+    )
+    // .select("_id")
     return queryId
 }
 

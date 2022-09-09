@@ -52,12 +52,18 @@ $(() => {
 // *********************************
 
 $(function() {
-    $(".dropdown-menu li a").click(function() {      
-        $(".btn:first-child").text($(this).text())
-        $(".btn:first-child").val($(this).text())
-        $("#submit-item-btn").val($(this).text())
-        $("#thisId").val($(this).data("value"))
+    $(".dropdown-menu li a").click(function() {
+        const id = $(this).attr("id")
+        const list = $(this).attr("name")
+        $(".add-item-modal-dropdown").text($(this).text())
+        $(".save-list-id").attr("value", id)
+        $(".save-item-button").attr("value", list)
     })  
+  })
+
+  $(function() {
+    const list = $(".add-item-modal-dropdown").text()
+    $("#saveListId").attr("value", list)
   })
 
 // *********************************
@@ -87,13 +93,3 @@ $(document).ready(function() {
         })
     })
 })
-
-// *********************************
-// *Delete Item Button
-// *********************************
-
-// $(".delete-item-button").click(function() {
-//     const id = $(this).attr("value")
-    // $(".delete-item-id").attr("value", id)
-    // $(this).submit()
-// })

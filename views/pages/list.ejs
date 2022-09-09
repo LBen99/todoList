@@ -97,7 +97,7 @@
                   <ul class="dropdown-menu">
                     <% allLists.forEach((list) => { %>
                       <li>
-                        <a class="dropdown-item" data-value="<%= list._id %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
+                        <a class="dropdown-item" id="<%= list._id %>" name="<%= list.name %>"><%= list.name.replace(/\w/, c => c.toUpperCase()) %></a>
                         <input id="listId" type="hidden" name="listId" value="<%= list._id %>">
                       </li>
                     <% }) %>
@@ -105,8 +105,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <input id="thisId" type="hidden" name="thisId" value="<%= lists._id %>">
-                <button type="submit" name="list" value="<%= listTitle%>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
+                <input class="save-list-id" type="hidden" name="saveListId" value="<%= listId %>">
+                <button type="submit" name="saveList" value="<%= listTitle %>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
               </div>           
             </div>
           </form>

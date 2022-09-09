@@ -46,8 +46,8 @@ class MainController {
         const Item  = req.models.Item
         const List = req.models.List
         const itemName = req.body.newItem
-        const listName = _.lowerCase(req.body.list)
-        const id = req.body.thisId
+        const listName = _.lowerCase(req.body.saveList)
+        const id = req.body.saveListId
         const username = req.session.username
        
         const newItem = new Item({
@@ -125,6 +125,7 @@ class MainController {
         const customListName = req.params.customListName
         const queryList = userCollection.getList(username, customListName)
         const queryNames = userCollection.getListNames(username)
+        const id = req.params.id
 
         queryList.exec((err, aggList) => {
             if (!err) {
@@ -155,6 +156,7 @@ class MainController {
                                                         listTitle: _.capitalize(customListName),
                                                         lists: aggList,
                                                         date: fullDate,
+                                                        listId: id,
                                                         allLists: foundAllLists
                                                     })                       
                                                 }
@@ -167,6 +169,7 @@ class MainController {
                                 listTitle: _.capitalize(customListName),
                                 lists: aggList,
                                 date: fullDate,
+                                listId: id,
                                 allLists: foundAllLists
                             })
                         } else {
