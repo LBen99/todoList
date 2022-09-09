@@ -205,7 +205,9 @@ footer {
 .modal-signup-button:hover,
 .get-started-button:hover,
 .all-list-cards:hover,
-.new-list-button:hover {
+.new-list-button:hover,
+.cancel-reset-button:hover,
+.cancel-delete-button:hover {
   background-color: #eeeeee7c;
   color:#EEEEEE;
 }
@@ -217,7 +219,9 @@ footer {
 .get-started-button,
 .all-list-cards,
 .new-list-card,
-.new-list-button {
+.new-list-button,
+.cancel-reset-button,
+.cancel-delete-button {
   background-color: #393E46;
   border-color: #EEEEEE;
   color: #EEEEEE;

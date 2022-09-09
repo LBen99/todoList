@@ -67,7 +67,7 @@
             <p>Are you sure you want to delete <%= listTitle %> list?</p>
           </div>
           <div class="modal-footer">
-            <button class="btn cancel-delete-btn" data-bs-dismiss="modal" aria-label="close">Cancel</button>
+            <button class="btn cancel-delete-button" data-bs-dismiss="modal" aria-label="close">Cancel</button>
             <form action="/todo/deleteList" method="post">
               <button class="btn btn-danger" type="submit" name="deleteButton" value="<%= listTitle %>">Delete List</button>
             </form>
