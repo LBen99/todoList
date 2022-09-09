@@ -27,14 +27,14 @@
           </form>
         </div>
         <div class="nav-link today-reset-button">
-          <form action="/todo/reset" method="post">
-            <button type="submit" name="resetList" value="<%= listTitle %>">
+          <!-- <form action="/todo/reset" method="post"> -->
+            <button class="reset-list-button" data-bs-toggle="modal" data-bs-target="#resetListModal">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
                 <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
               </svg>
             </button>
-          </form>
+          <!-- </form> -->
         </div>
         <div class="nav-item list-heading px-3">
           <h2><%= listTitle %></h2>
@@ -56,6 +56,26 @@
           </form>
         </div>
       </nav>
+    </div>
+
+    <div class="modal fade" id="resetListModal" tabindex="-1" aria-labelledby="resetListModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header">
+            <h3 class="mb-0">Reset List?</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to reset this list?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn cancel-reset-btn" data-bs-dismiss="modal" aria-label="close">Cancel</button>
+            <form action="/todo/reset" method="post">
+              <button class="btn btn-danger" type="submit" name="resetList" value="<%= listTitle %>">Reset List</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
