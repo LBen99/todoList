@@ -279,7 +279,7 @@ input.form-control:focus {
 }
 
 @media (max-width: 991.98px) {
-  .mobile-display-nav-title {
+  .mobile-display-navbar {
     display: contents;
   }
   .web-display-nav-title {
