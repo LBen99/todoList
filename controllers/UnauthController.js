@@ -19,7 +19,14 @@ class UnauthController {
             if (err) {
                 res.status(400).send(err)
             } else {
-                res.redirect("/")
+                if (user) {
+                    req.session.username = username
+                    req.session.loggedIn = true
+                    res.redirect("/todo")
+                
+                } else {
+                    res.status(400).send({error: "Signup failed"})
+                }
             }
         })
     }
