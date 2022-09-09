@@ -1,4 +1,3 @@
-// import mongoose from "mongoose"
 import Item from "../models/item.js"
 
 const item1 = new Item({

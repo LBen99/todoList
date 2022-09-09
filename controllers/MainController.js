@@ -4,13 +4,6 @@ import {newList} from "../models/list.js"
 import defaultItems from "../schemas/defaultItems.js"
 import fullDate from "../static/js/date.js"
 class MainController {
-    
-    // index(req, res) {
-    //     res.render("pages/main", {
-    //         items: defaultItems,
-    //         date: fullDate
-    //     })
-    // }
 
     today(req, res) {
         const List = req.models.List

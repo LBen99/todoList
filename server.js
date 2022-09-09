@@ -1,18 +1,16 @@
 // *********************************
-// Enabling Enviromental Variables
+// *Enabling Enviromental Variables
 // *********************************
 import dotenv from "dotenv"
 dotenv.config()
 
 // *********************************
-// Import Dependencies
+// *Import Dependencies
 // *********************************
 import express from "express"
 import methodOverride from "method-override"
-import cors from "cors"
 import morgan from "morgan"
 import MainController from "./controllers/MainController.js"
-import APIController from "./controllers/APIController.js"
 import UnauthController from "./controllers/UnauthController.js"
 import mongoose from "mongoose"
 import bodyParser from "body-parser"
@@ -26,7 +24,6 @@ import MongoStore from "connect-mongo"
 const PORT = process.env.PORT || 3333
 const MONGO_URI = process.env.MONGO_URI
 const mainController = new MainController()
-const apiController = new APIController()
 const unauthController = new UnauthController()
 
 // *********************************
@@ -47,21 +44,19 @@ import List from "./models/list.js"
 import User from "./models/user.js"
 
 // *********************************
-// Creating Application Object
+// *Creating Application Object
 // *********************************
 const app = express()
 
 // *********************************
-// Routers
+// *Routers
 // *********************************
 const MainRoutes = express.Router()
-const APIRoutes = express.Router()
 const UnauthRoutes = express.Router()
 
 // *********************************
-// Middleware
+// *Middleware
 // *********************************
-// Global Middleware
 app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -89,9 +84,6 @@ app.use((req, res, next) => {
 
 app.use("/", UnauthRoutes)
 app.use("/", MainRoutes)
-app.use("/api", APIRoutes)
-// Router Specific Middleware
-APIRoutes.use(cors())
 
 // *********************************
 // *Unauthenticated Routes
@@ -116,12 +108,8 @@ MainRoutes.post("/my-lists", mainController.viewLists)
 MainRoutes.get("/my-lists", mainController.viewLists)
 MainRoutes.post("/todo/next", mainController.next)
 MainRoutes.post("/todo/previous", mainController.previous)
-// *********************************
-// API Routes that Return JSON
-// *********************************
-APIRoutes.get("/", apiController.example) //"/api"
 
 // *********************************
-// Server Listener
+// *Server Listener
 // *********************************
 app.listen(PORT, () => console.log(`👂Listening on Port ${PORT}👂`))

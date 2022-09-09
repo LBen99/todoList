@@ -29,42 +29,9 @@ function getList(username, listName) {
                 name: "$lists.name",
                 items: "$lists.items"
             }
-        },
-        // {
-        //     $unwind: {
-        //         path: "$items"
-        //     }
-        // }
+        }
     ])
     return queryList
-}
-
-//Get list id
-// function getListId(username, listName) {
-//     const queryId = List
-//     .findOne({username: username, name: listName})
-//     return queryId
-// }
-function getListId(username, listName) {
-    const queryId = List
-    .findOne(
-        {
-            username: username,
-            lists: {
-                name: listName
-            }
-        }
-    )
-    // .select("_id")
-    return queryId
-}
-
-//Get list items
-function getItems(id, username) {
-    const queryItems = List
-    .findOne({_id: id, username: username})
-    .select("items")
-    return queryItems
 }
 
 function getOneName(username, listName) {
@@ -262,8 +229,6 @@ function getPreviousName(username, listName) {
 
 export {
     getList,
-    getListId,
-    getItems,
     getOneName,
     getListNames,
     getFirstName,
