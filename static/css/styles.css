@@ -270,3 +270,22 @@ input.form-control:focus {
 .task-name:hover {
   cursor: pointer;
 }
+
+.mobile-display-nav-title {
+  display: none;
+}
+.web-display-nav-title {
+  display: contents;
+}
+
+@media (max-width: 991.98px) {
+  .mobile-display-nav-title {
+    display: contents;
+  }
+  .web-display-nav-title {
+    display: none;
+  }
+  .web-display-navbar {
+    display: none;
+  }
+}
