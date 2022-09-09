@@ -17,7 +17,49 @@
   </header>
 
   <main>
-    <div class="list-header-nav mt-5">
+  <div class="mobile-display-navbar list-header-nav mt-5">
+    <nav class="nav nav-masthead justify-content-center mt-3">
+      <div class="nav-item list-heading px-3">
+        <h2><%= listTitle %></h2>
+      </div>
+    </nav>
+    <nav class="nav nav-masthead justify-content-center">
+      <div class="nav-link">
+        <form action="/todo/previous" method="post">
+          <button class="previous-list-button" type="submit" name="previousList" value="<%= listTitle %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+      <div class="nav-link today-reset-button">
+        <button class="reset-list-button" data-bs-toggle="modal" data-bs-target="#resetListModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="nav-link">
+        <button class="new-item-button" type="button" data-bs-toggle="modal" data-bs-target="#addItemModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="nav-link">
+        <form action="/todo/next" method="post">
+          <button class="next-list-button" type="submit" name="nextList" value="<%= listTitle %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </nav>
+  </div>
+    <div class="web-display-navbar list-header-nav mt-5">
       <nav class="nav nav-masthead justify-content-center">
         <div class="nav-link previous-list-button">
           <form action="/todo/previous" method="post">
@@ -36,7 +78,7 @@
             </svg>
           </button>
         </div>
-        <div class="nav-item list-heading px-3">
+        <div class="web-display-nav-title nav-item list-heading px-3">
           <h2><%= listTitle %></h2>
         </div>
         <div class="nav-link new-item-button">
