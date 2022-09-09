@@ -68,8 +68,8 @@
           </div>
           <div class="modal-footer">
             <button class="btn cancel-reset-button" data-bs-dismiss="modal" aria-label="close">Cancel</button>
-            <form action="/todo/reset" method="post">
-              <button class="btn btn-danger" type="submit" name="resetList" value="<%= listTitle %>">Reset List</button>
+            <form action="/todo/resetList" method="post">
+              <button class="btn btn-success" type="submit" name="resetList" value="<%= listTitle %>">Reset List</button>
             </form>
           </div>
         </div>

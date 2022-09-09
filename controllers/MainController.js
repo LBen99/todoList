@@ -285,38 +285,61 @@ class MainController {
         })
     }
 
-    reset(req, res) {
+    resetList(req, res) {
         const List = req.models.List
         const username = req.session.username
+        const listName = _.lowerCase(req.body.resetList)
+        const listId = req.body.resetListId
 
-        const list = new newList({
-            name: "today",
-            items: defaultItems    
-        })
-
-        List.updateOne(
-            {
-                username: username,
-                "lists.name": "today"
-            },
-            {
-                $pull: {
-                    "lists.$.items": {}
+        if (listName === "today") {
+            List.updateOne(
+                {
+                    username: username,
+                    "lists.name": "today"
+                },
+                {
+                    $pull: {
+                        "lists.$.items": {}
+                    }
                 }
-            }
-        ).exec()
-        List.updateOne(
-            {
-                username: username,
-                "lists.name": "today"
-            },
-            {
-                $push: {
-                    "lists.$.items": defaultItems
+            ).exec(() => {
+                List.updateOne(
+                    {
+                        username: username,
+                        "lists.name": "today"
+                    },
+                    {
+                        $push: {
+                            "lists.$.items": defaultItems
+                        }
+                    }
+                ).exec(res.redirect("/todo"))
+            })
+        } else {
+            List.updateOne(
+                {
+                    username: username,
+                    "lists.name": listName
+                },
+                {
+                    $pull: {
+                        "lists.$.items": {}
+                    }
                 }
-            }
-        ).exec(res.redirect("/todo"))
-        
+            ).exec(() => {
+                List.updateOne(
+                    {
+                        username: username,
+                        "lists.name": listName
+                    },
+                    {
+                        $push: {
+                            "lists.$.items": defaultItems
+                        }
+                    }
+                ).exec(res.redirect("/todo/" + listName + "/" + listId))
+            })
+        }    
     }
 
     viewLists(req, res) {

@@ -64,10 +64,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to delete <%= listTitle %> list?</p>
+            <p>
+              Are you sure you want to delete <%= listTitle %> list?
+              <br>
+              <br>
+              Or
+            </p>
+            <form action="/todo/resetList" method="post">
+              <input type="hidden" name="resetListId" value="<%= listId %>">
+              <button class="btn btn-success ms-3" type="submit" name="resetList" value="<%= listTitle %>">Reset List</button>
+            </form>
           </div>
           <div class="modal-footer">
             <button class="btn cancel-delete-button" data-bs-dismiss="modal" aria-label="close">Cancel</button>
+            
             <form action="/todo/deleteList" method="post">
               <button class="btn btn-danger" type="submit" name="deleteButton" value="<%= listTitle %>">Delete List</button>
             </form>
