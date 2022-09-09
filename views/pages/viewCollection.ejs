@@ -4,14 +4,18 @@
 
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0"><%= listTitle %></h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
-        <a class="nav-link fw-bold py-1 px-0 active" href="/my-lists">Lists</a>
-        <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
-      </nav>
-    </div>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-title float-md-start">
+          <h3 class="mb-0">My Lists</h3>
+        </div>
+        <div class="nav nav-masthead justify-content-center navbar-contents float-md-end">
+          <a class="nav-link fw-bold py-1 px-0" href="/todo">Today</a>
+          <a class="nav-link fw-bold py-1 px-0 active" href="/my-lists">Lists</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
+        </div>
+      </div>          
+    </nav>
   </header>
 
   <div class="mt-5 pt-3">

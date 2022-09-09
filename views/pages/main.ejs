@@ -4,64 +4,68 @@
 
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
-      <div>
-        <h3 class="float-md-start mb-0">To-Do List</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0 login-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-            <a class="nav-link fw-bold py-1 px-0 signup-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Sign Up</a>
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <nav class="nav nav-masthead justify-content-center float-md-start">
-                                <a id="loginModalLabel" class="nav-link fw-bold py-1 px-0 login-button" type="button">Login</a>
-                                <a id="signupModalLabel" class="nav-link fw-bold py-1 px-0 signup-button" type="button">Sign Up</a>
-                            </nav>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div id="modalLoginForm">
-                            <form action="/login" method="post">
-                                <div class="modal-body">
-                                    <div class="mb-3 px-3">
-                                        <label for="usernameLoginInput" class="form-label">Username</label>
-                                        <input type="text" class="form-control" name="username" id="usernameLoginInput">
+          <nav class="navbar">
+            <div class="container-fluid">
+              <div class="navbar-title float-md-start">
+                <h3 class="mb-0">To-Do List</h3>
+              </div>
+              <div class="nav nav-masthead justify-content-center navbar-contents float-md-end">
+                <a class="nav-link fw-bold py-1 px-0 login-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                <a class="nav-link fw-bold py-1 px-0 signup-button" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Sign Up</a>
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <nav class="nav nav-masthead justify-content-center float-md-start">
+                                    <a id="loginModalLabel" class="nav-link fw-bold py-1 px-0 login-button" type="button">Login</a>
+                                    <a id="signupModalLabel" class="nav-link fw-bold py-1 px-0 signup-button" type="button">Sign Up</a>
+                                </nav>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div id="modalLoginForm">
+                                <form action="/login" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3 px-3">
+                                            <label for="usernameLoginInput" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name="username" id="usernameLoginInput">
+                                        </div>
+                                        <div class="mb-3 px-3">
+                                            <label for="passwordLoginInput" class="form-label">Password</label>
+                                            <input type="password" class="form-control" name="password" id="passwordLoginInput">
+                                        </div>
                                     </div>
-                                    <div class="mb-3 px-3">
-                                        <label for="passwordLoginInput" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" id="passwordLoginInput">
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn modal-login-button">Login!</button>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn modal-login-button">Login!</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="modalSignupForm">
-                            <form action="/signup" method="post">
-                                <div class="modal-body">
-                                    <div class="mb-3 px-3">
-                                        <label for="usernameSignupInput" class="form-label">Username</label>
-                                        <input type="text" class="form-control" name="username" id="usernameSignupInput" autocomplete="off">
+                                </form>
+                            </div>
+                            <div id="modalSignupForm">
+                                <form action="/signup" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3 px-3">
+                                            <label for="usernameSignupInput" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name="username" id="usernameSignupInput" autocomplete="off">
+                                        </div>
+                                        <div class="mb-3 px-3">
+                                            <label for="emailSignupInput" class="form-label">Email</label>
+                                            <input type="email" class="form-control" name="email" id="emailSignupInput" autocomplete="off">
+                                        </div>
+                                        <div class="mb-3 px-3">
+                                            <label for="passwordSignupInput" class="form-label">Password</label>
+                                            <input type="password" class="form-control" name="password" id="passwordSignupInput">
+                                        </div>
                                     </div>
-                                    <div class="mb-3 px-3">
-                                        <label for="emailSignupInput" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" id="emailSignupInput" autocomplete="off">
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn modal-signup-button">Sign Up!</button>
                                     </div>
-                                    <div class="mb-3 px-3">
-                                        <label for="passwordSignupInput" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" id="passwordSignupInput">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn modal-signup-button">Sign Up!</button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-      </div>
+              </div>
+            </div>              
+          </nav>
     </header>
 
     <main>
