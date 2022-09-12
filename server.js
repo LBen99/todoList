@@ -19,7 +19,7 @@ import session from "express-session"
 import MongoStore from "connect-mongo"
 
 // *********************************
-// Global Variables & Controller Instantiation
+// *Global Variables & Controller Instantiation
 // *********************************
 const PORT = process.env.PORT || 3333
 const MONGO_URI = process.env.MONGO_URI
@@ -27,7 +27,7 @@ const mainController = new MainController()
 const unauthController = new UnauthController()
 
 // *********************************
-// MongoDB Connection
+// *MongoDB Connection
 // *********************************
 mongoose.connect(MONGO_URI)
 

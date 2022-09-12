@@ -1,54 +1,23 @@
-/*
- * Globals
- */
-
-
-/* Custom default button */
+ /*********************************/
+ /**Globals/
+ /*********************************/
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
 }
 
-
-/*
- * Base structure
- */
-
+ /*********************************/
+ /**Base Structure/
+ /*********************************/
 body {
-  /* text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5); */
   background-color: #222831;
   color: #EEEEEE;
 }
 
 .cover-container {
   max-width: 42em;
-}
-
-
-/*
- * Header
- */
-
-.nav-masthead .nav-link {
-  color: rgba(238, 238, 238, .5);
-  border-bottom: .25rem solid transparent;
-}
-
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(238, 238, 238, .25);
-}
-
-.nav-masthead .nav-link + .nav-link {
-  margin-left: 1rem;
-}
-
-.nav-masthead .active {
-  color: #EEEEEE;
-  border-bottom-color: #EEEEEE;
 }
 
 h1 {
@@ -68,47 +37,6 @@ button {
   border-radius: 5px;
 }
 
-#heading {
-  /* background-color: #A683E3; */
-  text-align: center;
-  position: relative;
-}
-
-.list-heading {
-  display: inline-block;
-  position: relative;
-}
-
-.list-heading-btn {
-
-}
-
-.previous-btn {
-  display: inline-block;
-  padding-right: 3rem;
-  position: relative;
-}
-
-.next-btn {
-  display: inline-block;
-  padding-left: 3rem;
-  position: relative;
-}
-
-.list-options {
-
-}
-
-.delete-btn {
-  display: inline-block;
-  position: relative;
-}
-
-.add-item-btn {
-  display: inline-block;
-  position: relative;
-}
-
 .item {
   min-height: 70px;
   display: flex;
@@ -117,11 +45,6 @@ button {
 
 .item:last-child {
   border-bottom: 0;
-}
-
-input:checked+p {
-  text-decoration: line-through;
-  text-decoration-color: #A683E3;
 }
 
 input[type="checkbox"] {
@@ -137,11 +60,6 @@ p {
   color: #EEEEEE;
 }
 
-::placeholder {
-  color: grey;
-  opacity: 1;
-}
-
 footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);
@@ -149,8 +67,31 @@ footer {
 }
 
 /*********************************/
-/** Modal Style
+ /**Header/
+ /*********************************/
+.nav-masthead .nav-link {
+  color: rgba(238, 238, 238, .5);
+  border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(238, 238, 238, .25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 1rem;
+}
+
+.nav-masthead .active {
+  color: #EEEEEE;
+  border-bottom-color: #EEEEEE;
+}
+
 /*********************************/
+/**Modal Style/
+/*********************************/
+
 
 .modal-content {
   background-color: #393E46;
@@ -159,7 +100,7 @@ footer {
 }
 
 /*********************************/
-/** Get Started Card
+/**Get Started Card/
 /*********************************/
 
 .get-started-card,
@@ -171,7 +112,7 @@ footer {
 }
 
 /*********************************/
-/** List Cards
+/**List Cards/
 /*********************************/
 
 .list-card-name {
@@ -195,7 +136,7 @@ footer {
 }
 
 /*********************************/
-/** Button Style
+/**Button Style/
 /*********************************/
 
 .save-item-button:hover,
@@ -227,8 +168,17 @@ footer {
   color: #EEEEEE;
 }
 
+.delete-item-button-icon {
+  color: #eeeeee7c;
+}
+
+.delete-item-button-icon:hover {
+  color: #EEEEEE;
+  cursor: pointer;
+}
+
 /*********************************/
-/** Dropdown Style
+/**Dropdown Style/
 /*********************************/
 
 .dropdown-menu {
@@ -245,7 +195,7 @@ footer {
 }
 
 /*********************************/
-/** Input Style
+/**Input Style/
 /*********************************/
 
 input.form-control,
@@ -254,15 +204,9 @@ input.form-control:focus {
   color: #EEEEEE;
 }
 
-.delete-item-button-icon {
-  color: #eeeeee7c;
-}
-
-.delete-item-button-icon:hover {
-  color: #EEEEEE;
-  cursor: pointer;
-}
-
+/*********************************/
+ /**Strike Style/
+ /********************************/
 .is-striked {
   text-decoration: line-through;
 }
@@ -271,6 +215,9 @@ input.form-control:focus {
   cursor: pointer;
 }
 
+/*********************************/
+ /**Media Display/
+ /********************************/
 .mobile-display-navbar {
   display: none;
 }
