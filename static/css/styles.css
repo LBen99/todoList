@@ -131,7 +131,8 @@ footer {
   text-align: center;
 }
 
-#newListInput::placeholder {
+#newListInput::placeholder,
+#newItemInput::placeholder {
   color: #eeeeee7c;
 }
 

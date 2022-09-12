@@ -98,7 +98,7 @@ UnauthRoutes.get("/logout", unauthController.logout)
 // *********************************
 MainRoutes.get("/todo", mainController.today)
 MainRoutes.post("/todo", mainController.createItem)
-MainRoutes.post("/my-lists/createList", mainController.createList)
+MainRoutes.post("/todo/createList", mainController.createList)
 MainRoutes.get("/todo/:customListName/:id", mainController.findList)
 MainRoutes.post("/todo/strikeItem", mainController.strikeItem)
 MainRoutes.post("/todo/deleteItem", mainController.deleteItem)

@@ -121,18 +121,28 @@
     </div>
 
     <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog">
         <div class="modal-content rounded-4 shadow">
           <div class="modal-header">
-            <h3 class="mb-0">Create New Task!</h3>
+            <div class="container">
+              <div class="row">
+                <h3 class="add-item-list-nav navbar-title float-md-start mb-0 px-3"></h3>
+              </div>
+              <div class="row">
+                <nav class="nav nav-masthead float-md-start mb-0 px-3">
+                  <a id="addItemModalLabel" class="nav-link fw-bold py-1 px-0 new-item-tab" type="button">Task</a>
+                  <a id="addListModalLabel" class="nav-link fw-bold py-1 px-0 new-list-tab" type="button">List</a>
+                </nav>
+              </div>
+            </div>      
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form action="/todo" method="post">        
-            <div id="modalAddItemForm">
+          <div id="modalAddItemForm">
+            <form action="/todo" method="post">        
               <div class="modal-body">
                 <div class="mb-3 px-3">
                   <label for="newItemInput" class="form-label">New Item</label>
-                  <input type="text" class="form-control" name="newItem" id="newItemInput" autocomplete="off">
+                  <input type="text" class="form-control" name="newItem" id="newItemInput" placeholder="Name" autocomplete="off">
                 </div>
                 <div class="dropdown-center px-3">
                   <button class="btn add-item-modal-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -150,10 +160,23 @@
               </div>
               <div class="modal-footer">
                 <input class="save-list-id" type="hidden" name="saveListId">
-                <button type="submit" name="saveList" value="<%= listTitle%>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
-              </div>           
-            </div>
-          </form>
+                <button type="submit" name="saveList" value="<%= listTitle %>" class="btn btn-lg save-item-button w-100" data-bs-dismiss="modal">Save task!</button>
+              </div>
+            </form>
+          </div>
+          <div id="modalAddListForm">
+            <form action="/todo/createList" method="post">
+              <div class="modal-body">
+                <div class="mb-3 px-3">
+                  <label for="newListInput" class="form-label">New List</label>
+                  <input type="text" class="form-control" name="newListName" id="newListInput" placeholder="Name" autocomplete="off">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-lg  new-list-button w-100" type="submit" name="newListButton">Create list!</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -48,6 +48,40 @@ $(() => {
 })
 
 // *********************************
+// *New Task/List Modal Selection
+// *********************************
+
+$(() => {
+    $(".new-item-button").click(() => {
+        $("#addListModalLabel").removeClass("active")
+        $("#modalAddListForm").hide()
+        $("#addItemModalLabel").addClass("active")
+        $("#modalAddItemForm").show()
+        $(".add-item-list-nav").text("Create New Task!")
+    })
+})
+
+$(() => {
+    $("#addItemModalLabel").click(() => {
+        $("#addListModalLabel").removeClass("active")
+        $("#modalAddListForm").hide()
+        $("#addItemModalLabel").addClass("active")
+        $("#modalAddItemForm").show()
+        $(".add-item-list-nav").text("Create New Task!")
+    })
+})
+
+$(() => {
+    $("#addListModalLabel").click(() => {
+        $("#addItemModalLabel").removeClass("active")
+        $("#modalAddItemForm").hide()
+        $("#addListModalLabel").addClass("active")
+        $("#modalAddListForm").show()
+        $(".add-item-list-nav").text("Create New List!")
+    })
+})
+
+// *********************************
 // *List Selection Dropdown
 // *********************************
 
